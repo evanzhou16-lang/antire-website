@@ -96,8 +96,12 @@
     input, textarea { width: 100%; min-height: 46px; padding: 10px 12px; background: var(--glass); color: white; border: 1px solid var(--line); border-radius: 7px; font: inherit; }
     textarea { min-height: 110px; resize: vertical; }
     form .button { justify-self: start; }
-    .status { color: var(--muted); font-size: .875rem; }
-    .status:empty { display: none; }
+    .contact form[hidden], .honeypot { display: none; }
+    .book-alt { margin-top: 16px; color: var(--muted); }
+    .book-alt a { color: white; text-decoration: underline; text-underline-offset: 3px; }
+    .book-alt a:hover { color: var(--body); }
+    .thanks { padding: 24px; background: var(--background); }
+    .thanks p { margin-top: 10px; color: var(--muted); }
     footer { padding: 30px 0; }
     .footer-inner { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 24px; color: var(--muted); font-size: .8125rem; }
     .footer-inner small { margin-left: auto; font-size: inherit; }
@@ -136,7 +140,7 @@
         </svg>
         <span>Antire</span>
       </a>
-      <a class="button primary" href="#contact">Book a call</a>
+      <a class="button primary" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1hgOhCCX1QSvdW_Dy4_a7Qp4o3VjMJzdO2rCe_TY32glLBSH5bcBMGAuQOrEa_bz12EwXJwC8n" target="_blank" rel="noopener">Book a call</a>
     </div>
   </header>
 
@@ -146,7 +150,7 @@
         <h1 id="hero-title">Antire builds automation systems customised to your business</h1>
         <p>We build custom systems for the repetitive work your team doesn't have time for, designed around how your business actually runs. If a process keeps falling to evenings and weekends, we can look at automating it.</p>
         <div class="actions">
-          <a class="button primary" href="#contact">Book a 15-minute call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
+          <a class="button primary" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1hgOhCCX1QSvdW_Dy4_a7Qp4o3VjMJzdO2rCe_TY32glLBSH5bcBMGAuQOrEa_bz12EwXJwC8n" target="_blank" rel="noopener">Book a 15-minute call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
           <a class="button secondary" href="#flagship">See how it works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v15m-6-6 6 6 6-6"/></svg></a>
         </div>
       </div>
@@ -214,7 +218,7 @@
         <p class="label">03 / Free pilots</p>
         <h2 id="pilot-title">Try a free pilot</h2>
         <p class="copy">We're early-stage and running free pilots with a small number of businesses. If you want to see whether the cost-tracking system would help your business, book a 15-minute call. There's no charge for the pilot, and no obligation afterwards.</p>
-        <a class="button primary" href="#contact">Book a 15-minute call</a>
+        <a class="button primary" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1hgOhCCX1QSvdW_Dy4_a7Qp4o3VjMJzdO2rCe_TY32glLBSH5bcBMGAuQOrEa_bz12EwXJwC8n" target="_blank" rel="noopener">Book a 15-minute call</a>
       </div>
     </section>
 
@@ -222,18 +226,27 @@
       <div class="wrap split contact" data-reveal>
         <div>
           <p class="label">04 / Contact</p>
-          <h2 id="contact-title">Book a 15-minute call</h2>
+          <h2 id="contact-title">Send an enquiry</h2>
+          <p class="book-alt">Prefer to talk? <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1hgOhCCX1QSvdW_Dy4_a7Qp4o3VjMJzdO2rCe_TY32glLBSH5bcBMGAuQOrEa_bz12EwXJwC8n" target="_blank" rel="noopener">Book a 15-minute call</a></p>
         </div>
-        <!-- Replace action="#contact" with the live form endpoint, or replace this form with a link to the booking page. The placeholder handler below only runs while this action remains in place. -->
-        <form action="#contact" method="post">
+        <form method="POST" action="https://formsubmit.co/evan.zhou16@gmail.com">
+          <input type="hidden" name="_cc" value="Ramalhojosemaria9@gmail.com">
+          <input type="hidden" name="_subject" value="New Antire website enquiry">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://antire-website.onrender.com/?sent=1#thanks">
+          <input type="text" class="honeypot" name="_honey" tabindex="-1" autocomplete="off">
           <label>Name <input name="name" autocomplete="name" required></label>
           <label>Company <input name="company" autocomplete="organization" required></label>
           <label>Email <input name="email" type="email" autocomplete="email" required></label>
           <label><span>Phone <span class="optional">(optional)</span></span><input name="phone" type="tel" autocomplete="tel"></label>
           <label class="full">What takes up most of your admin time?<textarea name="admin_tasks" rows="4" required></textarea></label>
-          <button class="button primary full" type="submit">Book a 15-minute call</button>
-          <p class="status full" role="status"></p>
+          <button class="button primary full" type="submit">Send enquiry</button>
         </form>
+        <div id="thanks" class="panel thanks" hidden>
+          <h3>Thank you for your enquiry</h3>
+          <p>We’ve received your enquiry and will be in touch shortly to arrange a 15-minute call.</p>
+        </div>
       </div>
     </section>
   </main>
@@ -248,7 +261,7 @@
         </svg>
         <span>Antire</span>
       </a>
-      <span>[contact email]</span>
+      <a href="mailto:evan.zhou16@gmail.com">evan.zhou16@gmail.com</a>
       <span>[company details]</span>
       <small>&copy; <span id="year"></span> Antire</small>
     </div>
@@ -257,12 +270,13 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    const contactForm = document.querySelector('#contact form');
-    if (contactForm && contactForm.getAttribute('action') === '#contact') {
-      contactForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        contactForm.querySelector('[role="status"]').textContent = 'Online booking is currently unavailable.';
-      });
+    if (new URLSearchParams(window.location.search).get('sent') === '1') {
+      const thanks = document.getElementById('thanks');
+      document.querySelector('#contact form').hidden = true;
+      thanks.hidden = false;
+      if (window.location.hash === '#thanks') {
+        requestAnimationFrame(() => thanks.scrollIntoView());
+      }
     }
 
     if ('IntersectionObserver' in window && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
