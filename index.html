@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Antire builds custom automation systems for UK trades and construction businesses, starting with job cost tracking.">
+  <meta name="theme-color" content="#0A0A0A">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230A0A0A'/%3E%3Cg fill='%23ffffff' transform='translate(2.4 6.2) scale(0.098)'%3E%3Cpath d='M109 0h60L277 200h-59L139 53 58 200H0L109 0z'/%3E%3Cpath d='M124 137h58L147 200h-57L124 137z'/%3E%3C/g%3E%3C/svg%3E">
+  <title>Antire — Custom automation for your business</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700;750&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --background: #0A0A0A;
+      --muted: #A1A1AA;
+      --body: #E4E4E7;
+      --line: #27272A;
+      --glass: rgba(255, 255, 255, .025);
+      --mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body { margin: 0; background: var(--background); color: var(--body); font: 400 1rem/1.65 Inter, system-ui, sans-serif; }
+    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3 { color: white; line-height: 1.07; }
+    h1, h2 { letter-spacing: -.06em; font-weight: 650; }
+    h2 { font-size: clamp(2.25rem, 5vw, 4rem); }
+    h3 { font-size: 1.125rem; letter-spacing: -.025em; }
+    a { color: inherit; }
+    :focus-visible { outline: 2px solid white; outline-offset: 5px; }
+    .wrap { width: min(1120px, calc(100% - 64px)); margin-inline: auto; }
+    .header { position: sticky; top: 0; z-index: 2; background: rgba(0, 0, 0, .72); backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); }
+    .header-inner { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; color: white; font-size: 1.5rem; font-weight: 750; letter-spacing: -.065em; line-height: 1; text-decoration: none; }
+    .brand-mark { display: block; height: 28px; width: auto; flex: none; overflow: visible; }
+    .footer-inner .brand-mark { height: 22px; }
+    .footer-inner .brand { font-size: 1.15rem; color: white; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 19px; border-radius: 8px; border: 1px solid transparent; font: 600 .875rem/1.25 Inter, system-ui, sans-serif; text-decoration: none; cursor: pointer; transition: background .2s, border-color .2s, box-shadow .2s; }
+    .button svg { width: 16px; height: 16px; }
+    .primary { background: white; color: black; }
+    .primary:hover { background: var(--body); box-shadow: 0 0 22px rgba(255, 255, 255, .16); }
+    .secondary { border-color: var(--line); background: var(--glass); color: white; }
+    .secondary:hover { border-color: var(--muted); background: rgba(255, 255, 255, .07); }
+    .header .button { min-height: 38px; padding-inline: 14px; }
+    .hero { position: relative; isolation: isolate; overflow: hidden; text-align: center; padding: clamp(88px, 12vw, 160px) 0 clamp(88px, 11vw, 145px); border-bottom: 1px solid var(--line); }
+    .hero::before, .hero::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+    .hero::before { background: radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, .105), transparent 65%); }
+    .hero::after {
+      background-image: linear-gradient(rgba(255, 255, 255, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .07) 1px, transparent 1px);
+      background-size: 48px 48px;
+      background-position: center top;
+      mask-image: radial-gradient(ellipse at 50% 25%, black, transparent 73%);
+    }
+    .hero h1 { max-width: 960px; margin-inline: auto; font-size: clamp(2.65rem, 7.2vw, 6rem); }
+    .hero p { max-width: 660px; margin: 26px auto 0; color: var(--muted); font-size: clamp(1rem, 2vw, 1.125rem); }
+    .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 32px; }
+    .section { padding: clamp(64px, 9vw, 114px) 0; border-bottom: 1px solid var(--line); }
+    .label { color: var(--muted); font: 500 .75rem/1.5 var(--mono); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 18px; }
+    .copy { color: var(--muted); margin-top: 20px; }
+    .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(26px, 6vw, 80px); }
+    .features { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 10px; }
+    .features li { display: flex; align-items: baseline; gap: 12px; }
+    .features li::before { content: ""; flex: 0 0 5px; height: 5px; border-radius: 50%; background: var(--muted); align-self: start; margin-top: .68em; }
+    .panel { border: 1px solid var(--line); border-radius: 14px; background: linear-gradient(145deg, rgba(255, 255, 255, .045), var(--glass)); transition: border-color .22s, background .22s; }
+    .panel:hover { border-color: var(--muted); }
+    .dashboard { margin: 0; overflow: hidden; }
+    .dashboard figcaption { border-bottom: 1px solid var(--line); padding: 14px 17px; display: flex; align-items: center; gap: 10px; color: var(--muted); font: .72rem/1.5 var(--mono); }
+    .dashboard figcaption::before { content: ""; width: 7px; height: 7px; border: 1px solid var(--muted); border-radius: 50%; }
+    .flow { display: grid; grid-template-columns: minmax(0, 1fr) clamp(18px, 3vw, 42px) minmax(0, 1fr); align-items: center; padding: clamp(12px, 2.4vw, 28px); }
+    .sources { display: grid; gap: 12px; }
+    .node { min-height: 52px; display: flex; align-items: center; gap: 8px; padding: 9px 11px; border: 1px solid var(--line); border-radius: 8px; background: var(--background); font-size: .8125rem; font-weight: 500; line-height: 1.3; }
+    .node svg, .example svg { flex: none; width: 19px; height: 19px; color: var(--muted); }
+    .destination { border-color: var(--muted); color: white; }
+    .wires { height: 128px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; align-items: center; color: var(--muted); }
+    .wires::before, .wires::after { content: ""; grid-column: 1; height: 100%; border-right: 1px solid var(--muted); }
+    .wires::before { grid-row: 1; border-top: 1px solid var(--muted); border-radius: 0 8px 0 0; }
+    .wires::after { grid-row: 2; border-bottom: 1px solid var(--muted); border-radius: 0 0 8px 0; }
+    .wires span { grid-area: 1 / 1 / 3 / 3; height: 1px; background: var(--muted); position: relative; }
+    .wires span::after { content: ""; position: absolute; right: 2px; top: -3px; width: 7px; height: 7px; border-top: 1px solid; border-right: 1px solid; transform: rotate(45deg); }
+    .section-intro { max-width: 690px; }
+    .examples { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 34px; }
+    .example { min-height: 132px; display: grid; align-content: center; gap: 16px; padding: 24px; }
+    .example svg { width: 25px; height: 25px; }
+    .pilot { text-align: center; padding: clamp(30px, 7vw, 76px) clamp(20px, 5vw, 55px); background: radial-gradient(ellipse at top, rgba(255, 255, 255, .075), var(--glass) 76%); }
+    .pilot .copy { max-width: 620px; margin-inline: auto; }
+    .pilot .button { margin-top: 25px; }
+    .contact { align-items: start; }
+    form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 14px; }
+    form label { display: grid; gap: 7px; font-size: .875rem; font-weight: 500; }
+    .optional { color: var(--muted); font-weight: 400; }
+    .full { grid-column: 1 / -1; }
+    input, textarea { width: 100%; min-height: 46px; padding: 10px 12px; background: var(--glass); color: white; border: 1px solid var(--line); border-radius: 7px; font: inherit; }
+    textarea { min-height: 110px; resize: vertical; }
+    form .button { justify-self: start; }
+    .status { color: var(--muted); font-size: .875rem; }
+    .status:empty { display: none; }
+    footer { padding: 30px 0; }
+    .footer-inner { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 24px; color: var(--muted); font-size: .8125rem; }
+    .footer-inner small { margin-left: auto; font-size: inherit; }
+    @media (max-width: 800px) {
+      .split { grid-template-columns: 1fr; }
+      .dashboard { width: min(100%, 520px); }
+      .contact { gap: 28px; }
+    }
+    @media (max-width: 560px) {
+      .wrap { width: calc(100% - 36px); }
+      .header-inner { min-height: 61px; }
+      .examples, form { grid-template-columns: 1fr; }
+      .example { min-height: auto; display: flex; align-items: center; padding: 19px; }
+      .node { padding-inline: 7px; gap: 5px; }
+      .node svg { width: 15px; height: 15px; }
+      .footer-inner small { margin-left: 0; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .will-reveal { opacity: 0; transform: translateY(12px); transition: opacity .55s ease, transform .55s ease; }
+      .will-reveal.visible, .will-reveal:focus-within { opacity: 1; transform: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .button, .panel { transition: none; }
+    }
+  </style>
+</head>
+<body id="top">
+  <header class="header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top">
+        <!-- Antire logo mark: white inline SVG traced from the official geometric 'A'. Wordmark sits beside it. -->
+        <svg class="brand-mark" viewBox="0 0 277 200" fill="currentColor" aria-hidden="true" focusable="false">
+          <path d="M109 0h60L277 200h-59L139 53 58 200H0L109 0z"/>
+          <path d="M124 137h58L147 200h-57L124 137z"/>
+        </svg>
+        <span>Antire</span>
+      </a>
+      <a class="button primary" href="#contact">Book a call</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap">
+        <h1 id="hero-title">Antire builds automation systems customised to your business</h1>
+        <p>We build custom systems for the repetitive work your team doesn't have time for, designed around how your business actually runs. If a process keeps falling to evenings and weekends, we can look at automating it.</p>
+        <div class="actions">
+          <a class="button primary" href="#contact">Book a 15-minute call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
+          <a class="button secondary" href="#flagship">See how it works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v15m-6-6 6 6 6-6"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="flagship" class="section" aria-labelledby="flagship-title">
+      <div class="wrap split" data-reveal>
+        <div>
+          <p class="label">01 / Our flagship system</p>
+          <h2 id="flagship-title">Job cost tracking</h2>
+          <p class="copy">Most business owners spend hours working out their expenses themselves, chasing receipts, reading invoices and matching costs to jobs. Our cost tracking system does that for you.</p>
+          <ul class="features">
+            <li>Pulls invoices and receipts straight from your email</li>
+            <li>Reads uploaded bank statements</li>
+            <li>Connects to any cost source that has an API</li>
+            <li>Automatically categorises every cost and allocates it to the right job</li>
+          </ul>
+          <p class="copy">Built for trades and construction contractors who want to know what each job really costs, without doing the maths at night.</p>
+        </div>
+        <figure class="dashboard panel">
+          <figcaption>Job cost tracking · Illustrative workflow</figcaption>
+          <div class="flow">
+            <div class="sources" role="list" aria-label="Example cost sources">
+              <div class="node" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email</div>
+              <div class="node" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6m-6 4h6"/></svg>Bank statements</div>
+              <div class="node" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-12-2 14"/></svg>API sources</div>
+            </div>
+            <div class="wires" aria-hidden="true"><span></span></div>
+            <div class="node destination"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h7l2 2h9v11H3zM9 14l2 2 4-4"/></svg>Job allocation</div>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="automation-title">
+      <div class="wrap" data-reveal>
+        <div class="section-intro">
+          <p class="label">02 / Custom automation</p>
+          <h2 id="automation-title">Custom automation for your business</h2>
+          <p class="copy">Every business has its own repetitive tasks. We look at how yours runs and build a system around it, rather than forcing you into off-the-shelf software.</p>
+        </div>
+        <div class="examples">
+          <article class="panel example">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6m-6 4h6"/></svg>
+            <h3>Admin and paperwork</h3>
+          </article>
+          <article class="panel example">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v16h16M9 15v-3m5 3V9m5 6V6"/></svg>
+            <h3>Reporting</h3>
+          </article>
+          <article class="panel example">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h17m-4-4 4 4-4 4m5 4H4m4-4-4 4 4 4"/></svg>
+            <h3>Data entry between systems</h3>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="pilot-title">
+      <div class="wrap panel pilot" data-reveal>
+        <p class="label">03 / Free pilots</p>
+        <h2 id="pilot-title">Try a free pilot</h2>
+        <p class="copy">We're early-stage and running free pilots with a small number of businesses. If you want to see whether the cost-tracking system would help your business, book a 15-minute call. There's no charge for the pilot, and no obligation afterwards.</p>
+        <a class="button primary" href="#contact">Book a 15-minute call</a>
+      </div>
+    </section>
+
+    <section id="contact" class="section" aria-labelledby="contact-title">
+      <div class="wrap split contact" data-reveal>
+        <div>
+          <p class="label">04 / Contact</p>
+          <h2 id="contact-title">Book a 15-minute call</h2>
+        </div>
+        <!-- Replace action="#contact" with the live form endpoint, or replace this form with a link to the booking page. The placeholder handler below only runs while this action remains in place. -->
+        <form action="#contact" method="post">
+          <label>Name <input name="name" autocomplete="name" required></label>
+          <label>Company <input name="company" autocomplete="organization" required></label>
+          <label>Email <input name="email" type="email" autocomplete="email" required></label>
+          <label><span>Phone <span class="optional">(optional)</span></span><input name="phone" type="tel" autocomplete="tel"></label>
+          <label class="full">What takes up most of your admin time?<textarea name="admin_tasks" rows="4" required></textarea></label>
+          <button class="button primary full" type="submit">Book a 15-minute call</button>
+          <p class="status full" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <a class="brand" href="#top">
+        <!-- Antire logo mark: white inline SVG traced from the official geometric 'A'. Wordmark sits beside it. -->
+        <svg class="brand-mark" viewBox="0 0 277 200" fill="currentColor" aria-hidden="true" focusable="false">
+          <path d="M109 0h60L277 200h-59L139 53 58 200H0L109 0z"/>
+          <path d="M124 137h58L147 200h-57L124 137z"/>
+        </svg>
+        <span>Antire</span>
+      </a>
+      <span>[contact email]</span>
+      <span>[company details]</span>
+      <small>&copy; <span id="year"></span> Antire</small>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const contactForm = document.querySelector('#contact form');
+    if (contactForm && contactForm.getAttribute('action') === '#contact') {
+      contactForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        contactForm.querySelector('[role="status"]').textContent = 'Online booking is currently unavailable.';
+      });
+    }
+
+    if ('IntersectionObserver' in window && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        });
+      });
+      document.querySelectorAll('[data-reveal]').forEach((section) => {
+        if (section.getBoundingClientRect().top < window.innerHeight) return;
+        section.classList.add('will-reveal');
+        observer.observe(section);
+      });
+    }
+  </script>
+</body>
+</html>
