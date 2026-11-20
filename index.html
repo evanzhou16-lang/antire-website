@@ -79,6 +79,8 @@
     .wires::after { grid-row: 2; border-bottom: 1px solid var(--muted); border-radius: 0 0 8px 0; }
     .wires span { grid-area: 1 / 1 / 3 / 3; height: 1px; background: var(--muted); position: relative; }
     .wires span::after { content: ""; position: absolute; right: 2px; top: -3px; width: 7px; height: 7px; border-top: 1px solid; border-right: 1px solid; transform: rotate(45deg); }
+    .flagship-cta { margin-top: 28px; }
+    .flagship-cta .note { margin-top: 10px; color: var(--muted); font-size: .8125rem; }
     .section-intro { max-width: 690px; }
     .examples { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 34px; }
     .example { min-height: 132px; display: grid; align-content: center; gap: 16px; padding: 24px; }
@@ -163,6 +165,10 @@
             <li>Automatically categorises every cost and allocates it to the right job</li>
           </ul>
           <p class="copy">Built for trades and construction contractors who want to know what each job really costs, without doing the maths at night.</p>
+          <div class="flagship-cta">
+            <a class="button secondary" href="https://construgest-smart-track.base44.app" target="_blank" rel="noopener">Try the live demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
+            <p class="note">Interactive demo with sample data</p>
+          </div>
         </div>
         <figure class="dashboard panel">
           <figcaption>Job cost tracking · Illustrative workflow</figcaption>
